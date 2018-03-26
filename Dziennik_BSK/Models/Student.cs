@@ -17,17 +17,17 @@ namespace Dziennik_BSK.Models
         public string Pesel { get; set; }
 
         [Required, StringLength(20, MinimumLength = 3)]
-        [RegularExpression("[A-Z][a-ząćęłśźżó]+")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó]+")]
         [Display(Name = "Imię")]
         public string FirstName { get; set; }
 
         [Required, StringLength(20, MinimumLength = 3)]
-        [RegularExpression("[A-Z][a-ząćęłśźżó-]+")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]+")]
         [Display(Name = "Drugie imię")]
         public string SecendName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-Z][a-ząćęłśźżó-]+")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]+")]
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
@@ -42,7 +42,44 @@ namespace Dziennik_BSK.Models
 
         [Required, StringLength(3, MinimumLength = 1)]
         [RegularExpression("[1-9][0-9a-zA-Z]*")]
+        [Display(Name = "Klasa")]
         public string Class { get; set; }
         
+        [Required, StringLength(30, MinimumLength = 3)]
+        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]")]
+        [Display(Name = "Miasto")]
+        public string City { get; set; }
+
+        [Required, DataType(DataType.PostalCode)]
+        [RegularExpression("[0-9]{2}-[0-9]{3}")]
+        [Display(Name = "Kod pocztowy")]
+        public string PostalCode { get; set; }
+
+        [Required, StringLength(30, MinimumLength = 3)]
+        [RegularExpression(@"[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-\s]")]
+        [Display(Name = "Ulica")]
+        public string Street { get; set; }
+
+        [Required, StringLength(4, MinimumLength = 1)]
+        [RegularExpression(@"\w")]
+        [Display(Name = "Numer domu")]
+        public string BuildingNumber { get; set; }
+
+        [StringLength(4, MinimumLength = 1)]
+        [RegularExpression(@"\w")]
+        [Display(Name = "Numer mieszkania")]
+        public string FlatNumber { get; set; }
+
+        [Display(Name = "Rodzice")]
+        ICollection<Parent> Parents { get; set; }
+
+        [Display(Name = "Oceny")]
+        ICollection<Grade> Grades { get; set; }
+
+        [Display(Name = "Obecności")]
+        ICollection<Participation> Participations { get; set; }
+
+        [Display(Name = "Uwagi")]
+        ICollection<Note> Notes { get; set; }
     }
 }
