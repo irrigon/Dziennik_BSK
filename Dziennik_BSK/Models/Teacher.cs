@@ -39,12 +39,12 @@ namespace Dziennik_BSK.Models
         public string Email { get; set; }
 
         [Display(Name = "Wpisane uwagi")]
-        ICollection<Note> Notes { get; set; }
+        public ICollection<Note> Notes { get; set; }
 
         [Display(Name = "Poprowadzone lekcje")]
-        ICollection<Lesson> Lessons { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
 
         [Display(Name = "Wystawione oceny")]
-        ICollection<Grade> Grades { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 }

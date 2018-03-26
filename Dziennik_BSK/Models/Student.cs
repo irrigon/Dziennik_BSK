@@ -71,15 +71,15 @@ namespace Dziennik_BSK.Models
         public string FlatNumber { get; set; }
 
         [Display(Name = "Rodzice")]
-        ICollection<Parent> Parents { get; set; }
+        public Responsibility Parent { get; set; }
 
         [Display(Name = "Oceny")]
-        ICollection<Grade> Grades { get; set; }
+        public ICollection<Grade> Grades { get; set; }
 
         [Display(Name = "Obecności")]
-        ICollection<Participation> Participations { get; set; }
+        public ICollection<Participation> Participations { get; set; }
 
         [Display(Name = "Uwagi")]
-        ICollection<Note> Notes { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 }
