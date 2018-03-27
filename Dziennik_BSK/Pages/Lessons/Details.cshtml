@@ -1,0 +1,37 @@
+@page
+@model Dziennik_BSK.Pages_Lessons.DetailsModel
+
+@{
+    ViewData["Title"] = "Lekcja - szczegó³y";
+}
+
+<h2>Szczegó³y</h2>
+
+<div>
+    <h4>Lekcja</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.LessonDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.LessonDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Topic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Topic)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Lesson.Id">Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

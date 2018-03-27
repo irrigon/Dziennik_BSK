@@ -1,0 +1,37 @@
+@page
+@model Dziennik_BSK.Pages_Notes.DetailsModel
+
+@{
+    ViewData["Title"] = "Uwaga - Szczegó³y";
+}
+
+<h2>Sczegó³y</h2>
+
+<div>
+    <h4>Uwaga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.AddDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.AddDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.IsNegative)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.IsNegative)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Note.Id">Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

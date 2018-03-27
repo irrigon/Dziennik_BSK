@@ -12,7 +12,7 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
 
         [Required, DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data wystawienia")]
         public DateTime AddDate { get; set; }
 
@@ -21,6 +21,7 @@ namespace Dziennik_BSK.Models
         public string Content { get; set; }
 
         [Required]
+        [RegularExpression("Tak|Nie")]
         [Display(Name = "Czy negatywna")]
         public string IsNegative { get; set; }
 

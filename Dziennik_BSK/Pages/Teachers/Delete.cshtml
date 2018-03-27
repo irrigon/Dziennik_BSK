@@ -1,0 +1,52 @@
+@page
+@model Dziennik_BSK.Pages_Teachers.DeleteModel
+
+@{
+    ViewData["Title"] = "Nauczyciel - Usuñ";
+}
+
+<h2>Usuñ</h2>
+
+<h3>Na pewno chcesz usun¹æ tego nauczyciela?</h3>
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Pesel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Pesel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Email)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Teacher.Id" />
+        <input type="submit" value="Usuñ" class="btn btn-default" /> |
+        <a asp-page="./Index">Powrót do listy</a>
+    </form>
+</div>

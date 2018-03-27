@@ -1,0 +1,49 @@
+@page
+@model Dziennik_BSK.Pages_Parents.DetailsModel
+
+@{
+    ViewData["Title"] = "Rodzic - szczegó³y";
+}
+
+<h2>Szczegó³y</h2>
+
+<div>
+    <h4>Parent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Pesel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Pesel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Parent.Id">Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

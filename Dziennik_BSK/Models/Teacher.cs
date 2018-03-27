@@ -17,12 +17,12 @@ namespace Dziennik_BSK.Models
         public string Pesel { get; set; }
 
         [Required, StringLength(20, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó]+")]
+        [RegularExpression("[A-ZŚŻŹŃĆŁÓĘĄ][a-ząćęłńśźżó]+")]
         [Display(Name = "Imię")]
         public string FirstName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]+")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][a-ząćęłśńźżó-]+")] //TODO Big letter
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
@@ -34,7 +34,7 @@ namespace Dziennik_BSK.Models
 
         [Required, StringLength(50, MinimumLength = 8)]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"([\w\.\-] +)@([\w\-] +)((\.(\w){2, 3})+)$")]
+        //[RegularExpression(@"([\w\.\-] +)@([\w\-] +)((\.(\w){2, 3})+)$")]
         [Display(Name = "e-mail")]
         public string Email { get; set; }
 

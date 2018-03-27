@@ -1,0 +1,40 @@
+@page
+@model Dziennik_BSK.Pages_Lessons.DeleteModel
+
+@{
+    ViewData["Title"] = "Lekcja - Usuñ";
+}
+
+<h2>Usuñ lekcjê</h2>
+
+<h3>Na pewno chcesz usun¹æ tê lekcje?</h3>
+<div>
+    <h4>Lekcja</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.LessonDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.LessonDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Topic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Topic)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Lesson.Id" />
+        <input type="submit" value="Usuñ" class="btn btn-default" /> |
+        <a asp-page="./Index">Powrót do listy</a>
+    </form>
+</div>

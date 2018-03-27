@@ -1,0 +1,36 @@
+@page
+@model Dziennik_BSK.Pages.Participations.IndexModel
+
+@{
+    ViewData["Title"] = "Obecnoœci";
+}
+
+<h2>Obscnoœci</h2>
+
+<p>
+    <a asp-page="Create">Dodaj now¹</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Participation[0].IsPresent)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Participation) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPresent)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

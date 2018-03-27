@@ -1,0 +1,60 @@
+@page
+@model Dziennik_BSK.Pages_Grades.IndexModel
+
+@{
+    ViewData["Title"] = "Oceny";
+}
+
+<h2>Oceny</h2>
+
+<p>
+    <a asp-page="Create">Dodaj now¹ ocene</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade[0].AddDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade[0].Rate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade[0].Weight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade[0].Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade[0].Subject)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Grade) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

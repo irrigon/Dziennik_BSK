@@ -1,0 +1,40 @@
+@page
+@model Dziennik_BSK.Pages_Notes.DeleteModel
+
+@{
+    ViewData["Title"] = "Uwaga - Usuñ";
+}
+
+<h2>Usuñ uwagê</h2>
+
+<h3>Na pewno chcesz usun¹æ tê uwagê</h3>
+<div>
+    <h4>Uwaga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.AddDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.AddDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.IsNegative)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.IsNegative)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Note.Id" />
+        <input type="submit" value="Usuñ" class="btn btn-default" /> |
+        <a asp-page="./Index">Powrót do listy</a>
+    </form>
+</div>

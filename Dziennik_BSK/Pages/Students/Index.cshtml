@@ -1,0 +1,102 @@
+@page
+@model Dziennik_BSK.Pages_Students.IndexModel
+
+@{
+    ViewData["Title"] = "Uczniowie";
+}
+
+<h2>Uczniowie</h2>
+
+<p>
+    <a asp-page="Create">Dodaj ucznia</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].Pesel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].SecendName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].BirthDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].Class)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].Street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].BuildingNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].FlatNumber)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Student) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pesel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecendName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlatNumber)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

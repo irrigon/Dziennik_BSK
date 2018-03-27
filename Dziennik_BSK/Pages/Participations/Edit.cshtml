@@ -1,0 +1,35 @@
+@page
+@model Dziennik_BSK.Pages.Participations.EditModel
+
+@{
+    ViewData["Title"] = "Obecnoœæ - Edytuj";
+}
+
+<h2>Edytuj obecnoœæ</h2>
+
+<h4>Obecnoœæ</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Participation.Id" />
+            <div class="form-group">
+                <label asp-for="Participation.IsPresent" class="control-label"></label>
+                <input asp-for="Participation.IsPresent" class="form-control" />
+                <span asp-validation-for="Participation.IsPresent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Powrót do listy</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

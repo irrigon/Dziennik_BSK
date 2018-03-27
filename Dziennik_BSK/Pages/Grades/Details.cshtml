@@ -1,0 +1,49 @@
+@page
+@model Dziennik_BSK.Pages_Grades.DetailsModel
+
+@{
+    ViewData["Title"] = "Ocena - Szczegó³y";
+}
+
+<h2>Szczegó³y</h2>
+
+<div>
+    <h4>Ocena</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.AddDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.AddDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Rate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Rate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Weight)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Weight)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Subject)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Grade.Id">Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

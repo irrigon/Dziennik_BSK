@@ -12,8 +12,9 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
 
         [Required]
+        [RegularExpression("Tak|Nie")]
         [Display(Name = "Obecny")]
-        public bool IsPresent { get; set; }
+        public string IsPresent { get; set; }
 
         [Display(Name = "Uczeń")]
         public Student Student { get; set; }

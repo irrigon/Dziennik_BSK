@@ -12,12 +12,12 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
 
         [Required, DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data")]
         public DateTime LessonDate { get; set; }
 
         [Required, StringLength(20, MinimumLength = 2)]
-        [RegularExpression(@"\w\s-")]
+        //[RegularExpression(@"\\w\\s-")]
         [Display(Name = "Przedmiot")]
         public string Subject { get; set; }
 

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Dziennik_BSK</title>
+    <title>@ViewData["Title"]</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -30,9 +30,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
+                    <li><a asp-page="/Index">Strona główna</a></li>
+                    <li><a asp-page="/About">O stronie</a></li>
+                    <li><a asp-page="/Contact">Kontakt</a></li>
+                    <li><a asp-page="/Students/Index">Uczniowie</a></li>
+                    <li><a asp-page="/Parents/Index">Rodzice</a></li>
+                    <li><a asp-page="/Teachers/Index">Nauczyciele</a></li>
+                    <li><a asp-page="/Grades/Index">Oceny</a></li>
+                    <li><a asp-page="/Lessons/Index">Lekcje</a></li>
+                    <li><a asp-page="/Participations/Index">Obecności</a></li>
+                    <li><a asp-page="/Notes/Index">Uwagi</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -42,7 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Dziennik_BSK</p>
+            <p>&copy; 2017 - Dziennik</p>
         </footer>
     </div>
 

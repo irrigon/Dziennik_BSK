@@ -1,0 +1,48 @@
+@page
+@model Dziennik_BSK.Pages_Notes.IndexModel
+
+@{
+    ViewData["Title"] = "Uwagi";
+}
+
+<h2>Uwagi</h2>
+
+<p>
+    <a asp-page="Create">Dodaj now¹</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note[0].AddDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note[0].Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note[0].IsNegative)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Note) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsNegative)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

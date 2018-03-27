@@ -17,22 +17,22 @@ namespace Dziennik_BSK.Models
         public string Pesel { get; set; }
 
         [Required, StringLength(20, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó]+")]
+        [RegularExpression("[A-ZŚŻŹĆŃŁÓĘĄ][a-ząńćęłśźżó]+")]
         [Display(Name = "Imię")]
         public string FirstName { get; set; }
 
         [Required, StringLength(20, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]+")]
+        [RegularExpression("[A-ZŚŻŹĆŃŁÓĘĄ][a-zŃąćęłśźżó-]+")]
         [Display(Name = "Drugie imię")]
         public string SecendName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]+")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓĘŃĄ][a-ząćńęłśźżó-]+")]//TODO big letter
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
         [Required, DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data urodzenia")]
         public DateTime BirthDate { get; set; }
 
@@ -46,7 +46,7 @@ namespace Dziennik_BSK.Models
         public string Class { get; set; }
         
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-]")]
+        [RegularExpression("[A-ZŚŃŻŹĆŁÓĘĄ][a-ząćęłśźżóń-]*")]//TODO Big letter
         [Display(Name = "Miasto")]
         public string City { get; set; }
 
@@ -56,17 +56,17 @@ namespace Dziennik_BSK.Models
         public string PostalCode { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression(@"[A-ZŚŻŹĆŁÓĘĄ][a-ząćęłśźżó-\s]")]
-        [Display(Name = "Ulica")]
+        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][a-ząćęłśźżóń-]*")]// TODO space char
+        [Display(Name = "Ulica")] 
         public string Street { get; set; }
 
         [Required, StringLength(4, MinimumLength = 1)]
-        [RegularExpression(@"\w")]
+        //[RegularExpression("\\w")]
         [Display(Name = "Numer domu")]
         public string BuildingNumber { get; set; }
 
         [StringLength(4, MinimumLength = 1)]
-        [RegularExpression(@"\w")]
+        //[RegularExpression("\\w")]
         [Display(Name = "Numer mieszkania")]
         public string FlatNumber { get; set; }
 

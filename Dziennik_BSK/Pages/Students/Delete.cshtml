@@ -1,0 +1,94 @@
+@page
+@model Dziennik_BSK.Pages_Students.DeleteModel
+
+@{
+    ViewData["Title"] = "Uczeñ - usuñ";
+}
+
+<h2>Usuñ</h2>
+
+<h3>Na pewno chcesz usun¹æ tego ucznia</h3>
+<div>
+    <h4>Uczeñ</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Pesel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Pesel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.SecendName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.SecendName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.BirthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.BirthDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Year)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Year)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Class)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Class)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.PostalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.PostalCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Street)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.BuildingNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.BuildingNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.FlatNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.FlatNumber)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Student.Id" />
+        <input type="submit" value="Usuñ" class="btn btn-default" /> |
+        <a asp-page="./Index">Powrót do listy</a>
+    </form>
+</div>

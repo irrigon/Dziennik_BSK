@@ -1,0 +1,55 @@
+@page
+@model Dziennik_BSK.Pages_Grades.EditModel
+
+@{
+    ViewData["Title"] = "Ocena - Edytuj";
+}
+
+<h2>Edytuj</h2>
+
+<h4>Ocena</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Grade.Id" />
+            <div class="form-group">
+                <label asp-for="Grade.AddDate" class="control-label"></label>
+                <input asp-for="Grade.AddDate" class="form-control" />
+                <span asp-validation-for="Grade.AddDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Rate" class="control-label"></label>
+                <input asp-for="Grade.Rate" class="form-control" />
+                <span asp-validation-for="Grade.Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Weight" class="control-label"></label>
+                <input asp-for="Grade.Weight" class="form-control" />
+                <span asp-validation-for="Grade.Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Comment" class="control-label"></label>
+                <input asp-for="Grade.Comment" class="form-control" />
+                <span asp-validation-for="Grade.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Subject" class="control-label"></label>
+                <input asp-for="Grade.Subject" class="form-control" />
+                <span asp-validation-for="Grade.Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Powrót do listy ocen</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
