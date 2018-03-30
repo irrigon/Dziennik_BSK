@@ -71,7 +71,7 @@ namespace Dziennik_BSK.Models
         public string FlatNumber { get; set; }
 
         [Display(Name = "Rodzice")]
-        public Responsibility Parent { get; set; }
+        public ICollection<Responsibility> Parent { get; set; }
 
         [Display(Name = "Oceny")]
         public ICollection<Grade> Grades { get; set; }

@@ -18,9 +18,11 @@ namespace Dziennik_BSK.Models
 
         [Display(Name = "Uczeń")]
         public Student Student { get; set; }
+        public int StudentId { get; set; }
 
         [Display(Name = "Lekcja")]
         public Lesson Lesson { get; set; }
+        public int LessonId { get; set; }
 
     }
 }

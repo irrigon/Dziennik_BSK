@@ -11,8 +11,10 @@ namespace Dziennik_BSK.Models
         [Key]
         public int Id { get; set; }
 
-        public ICollection<Parent> Parents { get; set; }
+        public int ParentId { get; set; }
+        public Parent Parents { get; set; }
 
-        public ICollection<Student> Students { get; set; }
+        public int StudentId { get; set; }
+        public Student Students { get; set; }
     }
 }

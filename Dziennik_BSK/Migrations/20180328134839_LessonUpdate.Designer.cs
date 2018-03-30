@@ -11,9 +11,10 @@ using System;
 namespace Dziennik_BSK.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20180328134839_LessonUpdate")]
+    partial class LessonUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,13 +34,13 @@ namespace Dziennik_BSK.Migrations
                     b.Property<string>("Rate")
                         .IsRequired();
 
-                    b.Property<int>("StudentId");
+                    b.Property<int?>("StudentId");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(20);
 
-                    b.Property<int>("TeacherId");
+                    b.Property<int?>("TeacherId");
 
                     b.Property<int>("Weight");
 
@@ -67,7 +68,7 @@ namespace Dziennik_BSK.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
-                    b.Property<int>("TeacherId");
+                    b.Property<int?>("TeacherId");
 
                     b.Property<string>("Topic")
                         .IsRequired()
@@ -94,9 +95,9 @@ namespace Dziennik_BSK.Migrations
                     b.Property<string>("IsNegative")
                         .IsRequired();
 
-                    b.Property<int>("StudentId");
+                    b.Property<int?>("StudentId");
 
-                    b.Property<int>("TeacherId");
+                    b.Property<int?>("TeacherId");
 
                     b.HasKey("Id");
 
@@ -111,6 +112,8 @@ namespace Dziennik_BSK.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ChildId");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -134,6 +137,8 @@ namespace Dziennik_BSK.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChildId");
+
                     b.ToTable("Parent");
                 });
 
@@ -145,9 +150,9 @@ namespace Dziennik_BSK.Migrations
                     b.Property<string>("IsPresent")
                         .IsRequired();
 
-                    b.Property<int>("LessonId");
+                    b.Property<int?>("LessonId");
 
-                    b.Property<int>("StudentId");
+                    b.Property<int?>("StudentId");
 
                     b.HasKey("Id");
 
@@ -163,15 +168,7 @@ namespace Dziennik_BSK.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ParentId");
-
-                    b.Property<int>("StudentId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Responsibility");
                 });
@@ -202,6 +199,8 @@ namespace Dziennik_BSK.Migrations
                     b.Property<string>("FlatNumber")
                         .HasMaxLength(4);
 
+                    b.Property<int?>("ParentId");
+
                     b.Property<string>("Pesel")
                         .IsRequired()
                         .HasMaxLength(11);
@@ -224,6 +223,8 @@ namespace Dziennik_BSK.Migrations
                     b.Property<int>("Year");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Student");
                 });
@@ -262,60 +263,54 @@ namespace Dziennik_BSK.Migrations
                 {
                     b.HasOne("Dziennik_BSK.Models.Student", "Student")
                         .WithMany("Grades")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StudentId");
 
                     b.HasOne("Dziennik_BSK.Models.Teacher", "Teacher")
                         .WithMany("Grades")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("Dziennik_BSK.Models.Lesson", b =>
                 {
                     b.HasOne("Dziennik_BSK.Models.Teacher", "Teacher")
                         .WithMany("Lessons")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("Dziennik_BSK.Models.Note", b =>
                 {
                     b.HasOne("Dziennik_BSK.Models.Student", "Student")
                         .WithMany("Notes")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StudentId");
 
                     b.HasOne("Dziennik_BSK.Models.Teacher", "Teacher")
                         .WithMany("Notes")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId");
+                });
+
+            modelBuilder.Entity("Dziennik_BSK.Models.Parent", b =>
+                {
+                    b.HasOne("Dziennik_BSK.Models.Responsibility", "Child")
+                        .WithMany("Parents")
+                        .HasForeignKey("ChildId");
                 });
 
             modelBuilder.Entity("Dziennik_BSK.Models.Participation", b =>
                 {
                     b.HasOne("Dziennik_BSK.Models.Lesson", "Lesson")
                         .WithMany("Participations")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LessonId");
 
                     b.HasOne("Dziennik_BSK.Models.Student", "Student")
                         .WithMany("Participations")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StudentId");
                 });
 
-            modelBuilder.Entity("Dziennik_BSK.Models.Responsibility", b =>
+            modelBuilder.Entity("Dziennik_BSK.Models.Student", b =>
                 {
-                    b.HasOne("Dziennik_BSK.Models.Parent", "Parents")
-                        .WithMany("Child")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Dziennik_BSK.Models.Student", "Students")
-                        .WithMany("Parent")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Dziennik_BSK.Models.Responsibility", "Parent")
+                        .WithMany("Students")
+                        .HasForeignKey("ParentId");
                 });
 #pragma warning restore 612, 618
         }

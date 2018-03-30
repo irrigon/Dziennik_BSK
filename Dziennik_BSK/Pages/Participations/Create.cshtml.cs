@@ -10,7 +10,7 @@ using Dziennik_BSK.Models;
 
 namespace Dziennik_BSK.Pages.Participations
 {
-    public class CreateModel : PageModel
+    public class CreateModel : ParticipationAdds
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -21,6 +21,8 @@ namespace Dziennik_BSK.Pages.Participations
 
         public IActionResult OnGet()
         {
+            PopulateLessonDropDownList(_context);
+            PopulateStudentsDropDownList(_context);
             return Page();
         }
 
@@ -34,10 +36,21 @@ namespace Dziennik_BSK.Pages.Participations
                 return Page();
             }
 
-            _context.Participations.Add(Participation);
-            await _context.SaveChangesAsync();
+            var emptyPar = new Participation();
 
-            return RedirectToPage("./Index");
+            if (await TryUpdateModelAsync<Participation>(emptyPar, 
+                "participation", s => s.Id, s => s.IsPresent, s => s.LessonId, 
+                s => s.StudentId)) {
+
+                _context.Participations.Add(Participation);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
+            }
+
+            PopulateLessonDropDownList(_context);
+            PopulateStudentsDropDownList(_context);
+            return Page();
         }
     }
 }

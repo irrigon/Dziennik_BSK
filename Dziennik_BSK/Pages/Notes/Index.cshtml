@@ -17,9 +17,6 @@
                     @Html.DisplayNameFor(model => model.Note[0].AddDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Note[0].Content)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Note[0].IsNegative)
                 </th>
             <th></th>
@@ -32,14 +29,11 @@
                 @Html.DisplayFor(modelItem => item.AddDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.IsNegative)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
                 <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
             </td>
         </tr>

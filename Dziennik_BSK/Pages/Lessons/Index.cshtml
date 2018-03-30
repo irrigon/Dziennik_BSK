@@ -20,6 +20,9 @@
                     @Html.DisplayNameFor(model => model.Lesson[0].Subject)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Lesson[0].Class)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Lesson[0].Topic)
                 </th>
             <th></th>
@@ -35,11 +38,14 @@
                 @Html.DisplayFor(modelItem => item.Subject)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Topic)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
                 <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
             </td>
         </tr>

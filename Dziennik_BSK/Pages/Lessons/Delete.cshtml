@@ -25,10 +25,22 @@
             @Html.DisplayFor(model => model.Lesson.Subject)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Class)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Class)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Lesson.Topic)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Lesson.Topic)
+        </dd>
+        <dt>
+            Imiê i nazwisko prowadz¹cego
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TeacherFullName)
         </dd>
     </dl>
     

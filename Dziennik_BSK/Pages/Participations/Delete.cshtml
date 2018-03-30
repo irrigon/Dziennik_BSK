@@ -13,6 +13,24 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            Imiê i nazwisko ucznia
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudentFullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Participation.Lesson.LessonDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Participation.Lesson.LessonDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Participation.Lesson.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Participation.Lesson.Subject)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Participation.IsPresent)
         </dt>
         <dd>

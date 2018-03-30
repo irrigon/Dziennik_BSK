@@ -39,6 +39,6 @@ namespace Dziennik_BSK.Models
         public string Email { get; set; }
 
         [Display(Name = "Dzieci")]
-        public Responsibility Child { get; set; }
+        public ICollection<Responsibility> Child { get; set; }
     }
 }

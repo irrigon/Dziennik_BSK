@@ -11,7 +11,7 @@ using Dziennik_BSK.Models;
 
 namespace Dziennik_BSK.Pages.Participations
 {
-    public class EditModel : PageModel
+    public class EditModel : ParticipationAdds
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -30,40 +30,55 @@ namespace Dziennik_BSK.Pages.Participations
                 return NotFound();
             }
 
-            Participation = await _context.Participations.SingleOrDefaultAsync(m => m.Id == id);
+            Participation = await _context.Participations.Include(x => x.Lesson).
+                Include(x => x.Student).SingleOrDefaultAsync(m => m.Id == id);
 
             if (Participation == null)
             {
                 return NotFound();
             }
+
+            PopulateLessonDropDownList(_context);
+            PopulateStudentsDropDownList(_context);
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Participation).State = EntityState.Modified;
+            var objToUpdate = await _context.Participations.FindAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ParticipationExists(Participation.Id))
+            if (await TryUpdateModelAsync<Participation>(objToUpdate,
+                "participation", s => s.IsPresent, s => s.LessonId,
+                s => s.StudentId)) {
+
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
+
+                    _context.Attach(Participation).State = EntityState.Modified;
+                    return RedirectToPage("./Index");
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!ParticipationExists(Participation.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
 
+            PopulateLessonDropDownList(_context);
+            PopulateStudentsDropDownList(_context);
             return RedirectToPage("./Index");
         }
 

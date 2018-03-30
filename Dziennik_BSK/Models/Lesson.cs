@@ -25,8 +25,14 @@ namespace Dziennik_BSK.Models
         [Display(Name = "Temat")]
         public string Topic { get; set; }
 
+        [Required, StringLength(3, MinimumLength = 1)]
+        [RegularExpression("[1-9][0-9a-zA-Z]*")]
+        [Display(Name = "Klasa")]
+        public string Class { get; set; }
+
         [Display(Name = "Poprowadzona przez")]
         public Teacher Teacher { get; set; }
+        public int TeacherId { get; set; }
 
         [Display(Name = "Uczniowie")]
         public ICollection<Participation> Participations { get; set; }

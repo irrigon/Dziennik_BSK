@@ -36,9 +36,11 @@ namespace Dziennik_BSK.Models
 
         [Display(Name = "Wystawiona przez")]
         public Teacher Teacher { get; set; }
+        public int TeacherId { get; set; }
 
         [Display(Name = "Otrzymana przez")]
         public Student Student { get; set; }
+        public int StudentId { get; set; }
 
     }
 }

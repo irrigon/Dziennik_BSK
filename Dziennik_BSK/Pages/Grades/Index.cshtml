@@ -13,21 +13,18 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Grade[0].AddDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Grade[0].Rate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Grade[0].Weight)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Grade[0].Comment)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Grade[0].Subject)
-                </th>
+            <td>
+                @Html.DisplayNameFor(model => model.Grade[0].AddDate)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade[0].Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade[0].Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade[0].Subject)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,9 +39,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject)

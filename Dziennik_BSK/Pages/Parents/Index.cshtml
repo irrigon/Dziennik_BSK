@@ -14,9 +14,6 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Parent[0].Pesel)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Parent[0].FirstName)
                 </th>
                 <th>
@@ -35,9 +32,6 @@
 @foreach (var item in Model.Parent) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Pesel)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
@@ -50,8 +44,8 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
                 <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
             </td>
         </tr>

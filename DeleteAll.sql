@@ -1,0 +1,8 @@
+﻿DELETE FROM Student;
+DELETE FROM Participation;
+DELETE FROM Parent;
+DELETE FROM Lesson;
+DELETE FROM Responsibility;
+DELETE FROM Grade;
+DELETE FROM Note;
+DELETE FROM Teacher

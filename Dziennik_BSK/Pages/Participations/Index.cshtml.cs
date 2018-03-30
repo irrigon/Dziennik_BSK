@@ -23,7 +23,8 @@ namespace Dziennik_BSK.Pages.Participations
 
         public async Task OnGetAsync()
         {
-            Participation = await _context.Participations.ToListAsync();
+            Participation = await _context.Participations.Include(d => d.Lesson).
+                ToListAsync();
         }
     }
 }

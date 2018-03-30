@@ -20,6 +20,7 @@ namespace Dziennik_BSK.Pages_Lessons
         }
 
         public Lesson Lesson { get; set; }
+        public string TeacherFullName { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,8 +29,12 @@ namespace Dziennik_BSK.Pages_Lessons
                 return NotFound();
             }
 
-            Lesson = await _context.Lessons.SingleOrDefaultAsync(m => m.Id == id);
+            Lesson = await _context.Lessons.Include(x => x.Teacher).
+                SingleOrDefaultAsync(m => m.Id == id);
 
+            TeacherFullName = Lesson.Teacher.FirstName + " " +
+                Lesson.Teacher.Surname;
+            
             if (Lesson == null)
             {
                 return NotFound();
