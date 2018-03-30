@@ -12,7 +12,6 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
         
         [Required, DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data wystwienia")]
         public DateTime AddDate { get; set; }
 
@@ -41,6 +40,6 @@ namespace Dziennik_BSK.Models
         [Display(Name = "Otrzymana przez")]
         public Student Student { get; set; }
         public int StudentId { get; set; }
-
+        
     }
 }

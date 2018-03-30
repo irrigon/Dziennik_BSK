@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
 
-namespace Dziennik_BSK.Pages_Grades
+namespace Dziennik_BSK.Pages.Grades
 {
-    public class CreateModel : PageModel
+    public class CreateModel : GradeAddsPageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -21,6 +21,8 @@ namespace Dziennik_BSK.Pages_Grades
 
         public IActionResult OnGet()
         {
+            PopulateStudentDropDown(_context);
+            PopulateTacherDropDown(_context);
             return Page();
         }
 
@@ -34,10 +36,21 @@ namespace Dziennik_BSK.Pages_Grades
                 return Page();
             }
 
-            _context.Grades.Add(Grade);
-            await _context.SaveChangesAsync();
+            var emptyGrade = new Grade();
 
-            return RedirectToPage("./Index");
+            if (await TryUpdateModelAsync(emptyGrade, "grade",
+                x => x.Id, x => x.Rate, x => x.Subject, x => x.Weight,
+                x => x.Comment, x => x.AddDate, x => x.StudentId, x => x.TeacherId)) {
+                
+                _context.Grades.Add(Grade);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
+            }
+
+            PopulateStudentDropDown(_context);
+            PopulateTacherDropDown(_context);
+            return Page();
         }
     }
 }

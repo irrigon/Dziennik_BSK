@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model Dziennik_BSK.Pages_Grades.DeleteModel
 
 @{
@@ -41,6 +41,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Grade.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Student.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Student.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.Teacher.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade.Teacher.FullName)
         </dd>
     </dl>
     

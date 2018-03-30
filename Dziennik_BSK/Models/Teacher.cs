@@ -22,7 +22,7 @@ namespace Dziennik_BSK.Models
         public string FirstName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][a-ząćęłśńźżó-]+")] //TODO Big letter
+        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][A-Za-zŚŻŹĆŁÓŃĘĄąćęłśńźżó-]+")]
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
@@ -34,7 +34,6 @@ namespace Dziennik_BSK.Models
 
         [Required, StringLength(50, MinimumLength = 8)]
         [DataType(DataType.EmailAddress)]
-        //[RegularExpression(@"([\w\.\-] +)@([\w\-] +)((\.(\w){2, 3})+)$")]
         [Display(Name = "e-mail")]
         public string Email { get; set; }
 
@@ -46,5 +45,11 @@ namespace Dziennik_BSK.Models
 
         [Display(Name = "Wystawione oceny")]
         public ICollection<Grade> Grades { get; set; }
+
+        [Display(Name = "Imię i nazwisko nauczyciela")]
+        public string FullName
+        {
+            get { return FirstName + " " + Surname; }
+        }
     }
 }

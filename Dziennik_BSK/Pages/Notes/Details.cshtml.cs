@@ -28,7 +28,8 @@ namespace Dziennik_BSK.Pages_Notes
                 return NotFound();
             }
 
-            Note = await _context.Notes.SingleOrDefaultAsync(m => m.Id == id);
+            Note = await _context.Notes.Include(x => x.Student).
+                Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);
 
             if (Note == null)
             {

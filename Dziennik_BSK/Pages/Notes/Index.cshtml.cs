@@ -19,11 +19,11 @@ namespace Dziennik_BSK.Pages_Notes
             _context = context;
         }
 
-        public IList<Note> Note { get;set; }
+        public IList<Note> Note { get; set; }
 
         public async Task OnGetAsync()
         {
-            Note = await _context.Notes.ToListAsync();
+            Note = await _context.Notes.Include(x => x.Student).ToListAsync();
         }
     }
 }

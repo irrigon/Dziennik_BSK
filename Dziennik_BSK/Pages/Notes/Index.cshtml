@@ -13,18 +13,24 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Note[0].AddDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Note[0].IsNegative)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Student.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].AddDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].IsNegative)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Note) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FullName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AddDate)
             </td>

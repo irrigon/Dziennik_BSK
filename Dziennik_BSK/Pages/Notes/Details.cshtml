@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model Dziennik_BSK.Pages_Notes.DetailsModel
 
 @{
@@ -11,6 +11,18 @@
     <h4>Uwaga</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.Student.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.Student.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note.Teacher.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note.Teacher.FullName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Note.AddDate)
         </dt>

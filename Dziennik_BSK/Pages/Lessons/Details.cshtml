@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model Dziennik_BSK.Pages_Lessons.DetailsModel
 
 @{
@@ -36,10 +36,10 @@
             @Html.DisplayFor(model => model.Lesson.Topic)
         </dd>
         <dt>
-            Imiê i nazwisko prowadz¹cego
+            @Html.DisplayNameFor(model => model.Lesson.Teacher.FullName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TeacherFullName)
+            @Html.DisplayFor(model => model.Lesson.Teacher.FullName)
         </dd>
     </dl>
 </div>

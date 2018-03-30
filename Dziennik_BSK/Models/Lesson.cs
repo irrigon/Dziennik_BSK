@@ -12,7 +12,6 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
 
         [Required, DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data")]
         public DateTime LessonDate { get; set; }
 
@@ -37,5 +36,8 @@ namespace Dziennik_BSK.Models
         [Display(Name = "Uczniowie")]
         public ICollection<Participation> Participations { get; set; }
         
+        public string LessonName {
+            get { return LessonDate.ToShortDateString() + " " + Class + " " + Subject; }
+        }
     }
 }

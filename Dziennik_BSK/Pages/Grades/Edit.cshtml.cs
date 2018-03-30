@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
 
-namespace Dziennik_BSK.Pages_Grades
+namespace Dziennik_BSK.Pages.Grades
 {
-    public class EditModel : PageModel
+    public class EditModel : GradeAddsPageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -30,16 +30,20 @@ namespace Dziennik_BSK.Pages_Grades
                 return NotFound();
             }
 
-            Grade = await _context.Grades.SingleOrDefaultAsync(m => m.Id == id);
+            Grade = await _context.Grades.Include(x => x.Student).
+                Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);
 
             if (Grade == null)
             {
                 return NotFound();
             }
+
+            PopulateStudentDropDown(_context);
+            PopulateTacherDropDown(_context);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -48,23 +52,34 @@ namespace Dziennik_BSK.Pages_Grades
 
             _context.Attach(Grade).State = EntityState.Modified;
 
-            try
+            var gradeToUpdate = await _context.Grades.FindAsync(id);
+
+            if (await TryUpdateModelAsync(gradeToUpdate, "grade",
+                x => x.Rate, x => x.Subject, x => x.Weight, x => x.Comment,
+                x => x.AddDate, x => x.StudentId, x => x.TeacherId))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GradeExists(Grade.Id))
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!GradeExists(Grade.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            PopulateStudentDropDown(_context);
+            PopulateTacherDropDown(_context);
+            return Page();
         }
 
         private bool GradeExists(int id)

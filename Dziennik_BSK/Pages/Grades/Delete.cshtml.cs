@@ -29,8 +29,9 @@ namespace Dziennik_BSK.Pages_Grades
                 return NotFound();
             }
 
-            Grade = await _context.Grades.SingleOrDefaultAsync(m => m.Id == id);
-
+            Grade = await _context.Grades.Include(x => x.Student).
+                Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);
+            
             if (Grade == null)
             {
                 return NotFound();

@@ -21,18 +21,17 @@ namespace Dziennik_BSK.Models
         [Display(Name = "Imię")]
         public string FirstName { get; set; }
 
-        [Required, StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 3)]
         [RegularExpression("[A-ZŚŻŹĆŃŁÓĘĄ][a-zŃąćęłśźżó-]+")]
         [Display(Name = "Drugie imię")]
         public string SecendName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓĘŃĄ][a-ząćńęłśźżó-]+")]//TODO big letter
+        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][A-Za-zŚŻŹĆŁÓŃĘĄąćęłśńźżó-]+")]
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
         [Required, DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data urodzenia")]
         public DateTime BirthDate { get; set; }
 
@@ -46,7 +45,7 @@ namespace Dziennik_BSK.Models
         public string Class { get; set; }
         
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŃŻŹĆŁÓĘĄ][a-ząćęłśźżóń-]*")]//TODO Big letter
+        [RegularExpression(@"[A-ZŚŻŹĆŁÓŃĘĄ][A-Za-zŚŻŹĆŁÓŃĘĄąćęłśńźżó-]+")]//TODO space char
         [Display(Name = "Miasto")]
         public string City { get; set; }
 
@@ -56,7 +55,7 @@ namespace Dziennik_BSK.Models
         public string PostalCode { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][a-ząćęłśźżóń-]*")]// TODO space char
+        [RegularExpression(@"[A-ZŚŻŹĆŁÓŃĘĄ][a-ząćęłśźżóń-]*")]// TODO space char
         [Display(Name = "Ulica")] 
         public string Street { get; set; }
 
@@ -81,5 +80,10 @@ namespace Dziennik_BSK.Models
 
         [Display(Name = "Uwagi")]
         public ICollection<Note> Notes { get; set; }
+
+        [Display(Name = "Imię i nazwisko ucznia")]
+        public string FullName {
+            get { return FirstName + " " + Surname; }
+        }
     }
 }

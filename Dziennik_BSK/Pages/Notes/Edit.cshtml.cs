@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
 
-namespace Dziennik_BSK.Pages_Notes
+namespace Dziennik_BSK.Pages.Notes
 {
-    public class EditModel : PageModel
+    public class EditModel : NoteAddsPageView
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -36,10 +36,13 @@ namespace Dziennik_BSK.Pages_Notes
             {
                 return NotFound();
             }
+
+            PopulateStudentDropDown(_context);
+            PopulateTeacherDropDown(_context);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -48,23 +51,35 @@ namespace Dziennik_BSK.Pages_Notes
 
             _context.Attach(Note).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NoteExists(Note.Id))
+            var noteToUpdate = await _context.Notes.FindAsync(id);
+
+            if (await TryUpdateModelAsync<Note>(noteToUpdate, "note",
+                x => x.AddDate, x => x.Content, x => x.IsNegative,
+                x => x.StudentId, x => x.TeacherId)) {
+
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!NoteExists(Note.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            PopulateStudentDropDown(_context);
+            PopulateTeacherDropDown(_context);
+
+            return Page();
         }
 
         private bool NoteExists(int id)

@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model Dziennik_BSK.Pages.Participations.EditModel
 
 @{
@@ -16,7 +16,7 @@
             <input type="hidden" asp-for="Participation.Id" />
             <div class="form-group">
                 <label asp-for="Participation.IsPresent" class="control-label"></label>
-                <input asp-for="Participation.IsPresent" class="form-control" />
+                <select asp-for="Participation.IsPresent" class="form-control" ></select>
                 <span asp-validation-for="Participation.IsPresent" class="text-danger"></span>
             </div>
             <div class="form-group">

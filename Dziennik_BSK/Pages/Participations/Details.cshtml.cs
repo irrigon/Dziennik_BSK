@@ -20,7 +20,6 @@ namespace Dziennik_BSK.Pages.Participations
         }
 
         public Participation Participation { get; set; }
-        public string StudentFullName { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,10 +30,7 @@ namespace Dziennik_BSK.Pages.Participations
 
             Participation = await _context.Participations.Include(d => d.Lesson).
                 Include(d => d.Student).SingleOrDefaultAsync(m => m.Id == id);
-
-            StudentFullName = Participation.Student.FirstName + " " +
-                Participation.Student.Surname;
-
+            
             if (Participation == null)
             {
                 return NotFound();

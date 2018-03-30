@@ -22,7 +22,7 @@ namespace Dziennik_BSK.Models
         public string FirstName { get; set; }
 
         [Required, StringLength(30, MinimumLength = 3)]
-        [RegularExpression("[A-ZŚŻŹĆŁŃÓĘĄ][a-ząćęłńśźżó-]+")] //TODO Big Letter
+        [RegularExpression("[A-ZŚŻŹĆŁÓŃĘĄ][A-Za-zŚŻŹĆŁÓŃĘĄąćęłśńźżó-]+")] 
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
 
@@ -40,5 +40,11 @@ namespace Dziennik_BSK.Models
 
         [Display(Name = "Dzieci")]
         public ICollection<Responsibility> Child { get; set; }
+
+        [Display(Name = "Imię i nazwisko rodzica")]
+        public string FullName
+        {
+            get { return FirstName + " " + Surname; }
+        }
     }
 }

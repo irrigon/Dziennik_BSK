@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
 
-namespace Dziennik_BSK.Pages_Lessons
+namespace Dziennik_BSK.Pages.Lessons
 {
-    public class EditModel : PageModel
+    public class EditModel : TeacherPageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -30,16 +30,19 @@ namespace Dziennik_BSK.Pages_Lessons
                 return NotFound();
             }
 
-            Lesson = await _context.Lessons.SingleOrDefaultAsync(m => m.Id == id);
+            Lesson = await _context.Lessons.Include(x => x.Teacher).
+                SingleOrDefaultAsync(m => m.Id == id);
 
             if (Lesson == null)
             {
                 return NotFound();
             }
+
+            PopulateTeacherDropDown(_context);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -48,23 +51,33 @@ namespace Dziennik_BSK.Pages_Lessons
 
             _context.Attach(Lesson).State = EntityState.Modified;
 
-            try
+            var lessonToUpdate = await _context.Lessons.FindAsync(id);
+
+            if (await TryUpdateModelAsync<Lesson>(lessonToUpdate, "lesson",
+                x => x.Class, x => x.LessonDate, x => x.Subject, x => x.Topic,
+                x => x.TeacherId))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LessonExists(Lesson.Id))
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!LessonExists(Lesson.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            PopulateTeacherDropDown(_context);
+            return Page();
         }
 
         private bool LessonExists(int id)

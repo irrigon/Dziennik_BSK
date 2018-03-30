@@ -10,35 +10,55 @@
 <p>
     <a asp-page="Create">Dodaj ucznia</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-action-no-color">
+        <p>
+            Znajdź ucznia:<br />
+            Imie i nazwisko: <input type="text" name="SearchName" value="@Model.CurrentFilterName"/><br/>
+            Klasa <input type="text" name="SearchClass" value="@Model.CurrentFilterClass" />
+            Rocznik <input type="text" name="SearchYear" value="@Model.CurrentFilterYear" /> <br/>
+            <input type="submit" value="Szukaj" /> <br/>
+            <a asp-page="./Index">Przywróć cały widok</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Student[0].FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Student[0].SecendName)
-                </th>
-                <th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].FirstName)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.SurnameSort"
+                   asp-route-searchName="@Model.CurrentFilterName"
+                   asp-route-searchYear="@Model.CurrentFilterYear"
+                   asp-route-searchClass="@Model.CurrentFilterClass">
                     @Html.DisplayNameFor(model => model.Student[0].Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Student[0].Class)
-                </th>
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].Class)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Student) {
+@foreach (var item in Model.Student)
+{
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SecendName)
+                @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Class)
@@ -52,3 +72,24 @@
 }
     </tbody>
 </table>
+
+@{ 
+    var prevDisable = Model.Student.HasPreviousPage ? "" : "disabled";
+    var nextDisable = Model.Student.HasNextPage ? "" : "disabled";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-paageIndex="@(Model.Student.PageIndex - 1)"
+   asp-route-searchClass="@Model.CurrentFilterClass"
+   asp-route-searchName="@Model.CurrentFilterName"
+   asp-route-searchYear="@Model.CurrentFilterYear"
+    class="btn btn-default @prevDisable" >Poprzednia</a>
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-paageIndex="@(Model.Student.PageIndex + 1)"
+   asp-route-searchClass="@Model.CurrentFilterClass"
+   asp-route-searchName="@Model.CurrentFilterName"
+   asp-route-searchYear="@Model.CurrentFilterYear"
+   class="btn btn-default @nextDisable">Następna</a>

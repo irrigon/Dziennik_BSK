@@ -1,5 +1,5 @@
-@page
-@model Dziennik_BSK.Pages_Notes.EditModel
+@page "{id:int}"
+@model Dziennik_BSK.Pages.Notes.EditModel
 
 @{
     ViewData["Title"] = "Uwaga - Edytuj";
@@ -26,8 +26,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Note.IsNegative" class="control-label"></label>
-                <input asp-for="Note.IsNegative" class="form-control" />
+                <select asp-for="Note.IsNegative" class="form-control">
+                    <option>Tak</option>
+                    <option>Nie</option>
+                </select>
                 <span asp-validation-for="Note.IsNegative" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Student" class="control-label"></label>
+                <select asp-for="Note.StudentId" class="form-control"
+                        asp-items="@Model.StudentSL">
+                    <option>--- Wybierz ucznia ---</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Teacher" class="control-label"></label>
+                <select asp-for="Note.TeacherId" class="form-control"
+                        asp-items="@Model.TeacherSL">
+                    <option>--- Wybierz nauczyciela ---</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Zapisz" class="btn btn-default" />

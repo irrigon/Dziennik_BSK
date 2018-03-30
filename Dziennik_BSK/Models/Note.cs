@@ -12,7 +12,6 @@ namespace Dziennik_BSK.Models
         public int Id { get; set; }
 
         [Required, DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{yyyy-mm-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data wystawienia")]
         public DateTime AddDate { get; set; }
 

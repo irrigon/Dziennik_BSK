@@ -51,6 +51,8 @@ namespace Dziennik_BSK.Pages.Participations
                 return Page();
             }
 
+            _context.Attach(Participation).State = EntityState.Modified;
+
             var objToUpdate = await _context.Participations.FindAsync(id);
 
             if (await TryUpdateModelAsync<Participation>(objToUpdate,
@@ -61,8 +63,6 @@ namespace Dziennik_BSK.Pages.Participations
                 {
                     await _context.SaveChangesAsync();
 
-                    _context.Attach(Participation).State = EntityState.Modified;
-                    return RedirectToPage("./Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -75,6 +75,8 @@ namespace Dziennik_BSK.Pages.Participations
                         throw;
                     }
                 }
+                
+                return RedirectToPage("./Index");
             }
 
             PopulateLessonDropDownList(_context);

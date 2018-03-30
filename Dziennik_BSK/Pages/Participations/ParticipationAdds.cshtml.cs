@@ -17,28 +17,28 @@ namespace Dziennik_BSK.Pages.Participations
             object selectedLesson = null)
         {
             var lessonQuery = context.Lessons.Select(x => x);
-            if (!lessonDate.Equals(null))
+            if (!(lessonDate is null))
                 lessonQuery = lessonQuery.Where(x => x.LessonDate == lessonDate);
-            if (!subject.Equals(null))
+            if (!(subject is null))
                 lessonQuery = lessonQuery.Where(x => x.Subject == subject);
 
-            LessonSL = new SelectList(lessonQuery.AsNoTracking(), "LessonId", 
-                "Subject" ,selectedLesson);
+            LessonSL = new SelectList(lessonQuery.AsNoTracking(), "Id", 
+                "LessonName" ,selectedLesson);
         }
 
         public void PopulateStudentsDropDownList(SchoolContext context, string firstName = null,
             string surname = null, string cls = null, object selectedStudent = null)
         {
             var studentQuery = context.Students.Select(x => x);
-            if (!firstName.Equals(null))
+            if (!(firstName is null))
                 studentQuery = studentQuery.Where(x => x.FirstName == firstName);
-            if (!surname.Equals(null))
+            if (!(surname is null))
                 studentQuery = studentQuery.Where(x => x.Surname == surname);
-            if (!cls.Equals(null))
+            if (!(cls is null))
                 studentQuery = studentQuery.Where(x => x.Class == cls);
 
-            StudentSL = new SelectList(studentQuery.AsNoTracking(), "StudentId",
-                "Surname", selectedStudent);
+            StudentSL = new SelectList(studentQuery.AsNoTracking(), "Id",
+                "FullName", selectedStudent);
 
         }
     }

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
 
-namespace Dziennik_BSK.Pages_Notes
+namespace Dziennik_BSK.Pages.Notes
 {
-    public class CreateModel : PageModel
+    public class CreateModel : NoteAddsPageView
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
 
@@ -21,6 +21,8 @@ namespace Dziennik_BSK.Pages_Notes
 
         public IActionResult OnGet()
         {
+            PopulateStudentDropDown(_context);
+            PopulateTeacherDropDown(_context);
             return Page();
         }
 
@@ -34,10 +36,24 @@ namespace Dziennik_BSK.Pages_Notes
                 return Page();
             }
 
-            _context.Notes.Add(Note);
-            await _context.SaveChangesAsync();
+            var emptyNote = new Note();
 
-            return RedirectToPage("./Index");
+            if (await TryUpdateModelAsync<Note>(emptyNote, "note",
+                x => x.Id, x => x.AddDate, x => x.Content, x => x.IsNegative,
+                x => x.StudentId, x => x.TeacherId)) {
+
+
+                _context.Notes.Add(Note);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
+
+            }
+
+            PopulateStudentDropDown(_context);
+            PopulateTeacherDropDown(_context);
+
+            return Page();
         }
     }
 }
