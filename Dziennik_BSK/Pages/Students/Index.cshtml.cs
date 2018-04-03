@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +39,7 @@ namespace Dziennik_BSK.Pages_Students
                 searchClass = CurrentFilterClass;
             if (searchYear is null)
                 searchYear = CurrentFilterYear;
-            if (searchClass is null || searchName is null || searchYear is null)
+            if (searchClass != null || searchName != null || searchYear != null)
                 pageIndex = 1;
 
             CurrentFilterClass = searchClass;

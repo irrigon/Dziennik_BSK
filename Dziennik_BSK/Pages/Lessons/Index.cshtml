@@ -10,45 +10,81 @@
 <p>
     <a asp-page="Create">Dodaj now¹</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-action-no-color">
+        <p>
+            Szukaj ocen:<br />
+            Przedmiot: <input type="text" name="searchSubject" value="@Model.CurrentFilterSubject" /> <br />
+            Klasa: <input type="text" name="searchClass" value="@Model.CurrentFilterClass" /><br />
+            <input type="submit" value="Szukaj"><br />
+            <a asp-page="./Index">Resetuj filtr</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-                <th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-searchClass="@Model.CurrentFilterClass"
+                   asp-route-searchSubject="@Model.CurrentFilterSubject">
                     @Html.DisplayNameFor(model => model.Lesson[0].LessonDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lesson[0].Subject)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lesson[0].Class)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lesson[0].Topic)
-                </th>
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson[0].Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson[0].Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson[0].Topic)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Lesson) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LessonDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topic)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
-                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Lesson)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topic)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
+                    <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br />
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+    var prevDisabled = Model.Lesson.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.Lesson.HasNextPage ? "" : "disabled";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchSubject="@Model.CurrentFilterSubject"
+   asp-route-searchClass="@Model.CurrentFilterClass"
+   asp-route-pageIndex="@(Model.Lesson.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">Poprzednia</a>
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchSubject="@Model.CurrentFilterSubject"
+   asp-route-searchClass="@Model.CurrentFilterClass"
+   asp-route-pageIndex="@(Model.Lesson.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">Nastêpna</a>

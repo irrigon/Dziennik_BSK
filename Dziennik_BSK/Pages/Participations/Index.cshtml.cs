@@ -19,12 +19,41 @@ namespace Dziennik_BSK.Pages.Participations
             _context = context;
         }
 
-        public IList<Participation> Participation { get;set; }
-
-        public async Task OnGetAsync()
+        public PaginatedList<Participation> Participation { get;set; }
+        public string DateSort { get; set; }
+        public string CurrentSort { get; set; }
+        public string CurrentFilterIsPresent { get; set; }
+        
+        public async Task OnGetAsync(string sortOrder, string searchPresent,
+            int? pageIndex)
         {
-            Participation = await _context.Participations.Include(d => d.Lesson).
-                ToListAsync();
+            CurrentSort = sortOrder;
+            DateSort = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
+            if (searchPresent is null)
+                searchPresent = CurrentFilterIsPresent;
+            else
+                pageIndex = 1;
+
+            CurrentFilterIsPresent = searchPresent;
+
+            IQueryable<Participation> participationQuery = _context.Participations.
+                Include(x => x.Lesson).Select(x => x);
+            if (!String.IsNullOrEmpty(searchPresent))
+                participationQuery = participationQuery.Where(x => x.IsPresent.Contains(searchPresent));
+
+            switch (sortOrder) {
+                case "date_desc":
+                    participationQuery = participationQuery.OrderByDescending(x => x.Lesson.LessonDate);
+                    break;
+                default:
+                    participationQuery = participationQuery.OrderBy(x => x.Lesson.LessonDate);
+                    break;
+            }
+
+            int pageSize = 5;
+            Participation = await PaginatedList<Participation>.CreateAsync(participationQuery,
+                pageIndex ?? 1, pageSize);
         }
     }
 }

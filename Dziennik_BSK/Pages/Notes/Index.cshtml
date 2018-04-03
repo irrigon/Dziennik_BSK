@@ -10,11 +10,33 @@
 <p>
     <a asp-page="Create">Dodaj now¹</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-action-no-color">
+        <p>
+            Szukaj uwagi:<br />
+            Imiê i nazwisko ucznia: <input type="text" name="searchName" value="@Model.CurrentFilterName">
+            Czy negatywna:
+            <select name="searchIsNeg" asp-for="@Model.CurrentFilterIsNeg">
+                <option></option>
+                <option>Tak</option>
+                <option>Nie</option>
+            </select><br />
+            <input type="submit" value="Szukaj" /><br/>
+            <a asp-page="./Index">Resetuj filtr</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Note[0].Student.FullName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-searchIsNeg="@Model.CurrentFilterIsNeg"
+                   asp-route-searchName="@Model.CurrentFilterName">
+                    @Html.DisplayNameFor(model => model.Note[0].Student.FullName)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Note[0].AddDate)
@@ -26,23 +48,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Note) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsNegative)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
-                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Note)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsNegative)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
+                    <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br />
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisable = Model.Note.HasPreviousPage ? "" : "disabled";
+    var nextDisable = Model.Note.HasNextPage ? "" : "disabled";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchIsNeg="@Model.CurrentFilterIsNeg"
+   asp-route-serachName="@Model.CurrentFilterName"
+   asp-route-pageIndex="@(Model.Note.PageIndex - 1)"
+   class="btn btn-default @prevDisable">Poprzednia</a>
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchIsNeg="@Model.CurrentFilterIsNeg"
+   asp-route-serachName="@Model.CurrentFilterName"
+   asp-route-pageIndex="@(Model.Note.PageIndex + 1)"
+   class="btn btn-default @nextDisable">Nastêpna</a>

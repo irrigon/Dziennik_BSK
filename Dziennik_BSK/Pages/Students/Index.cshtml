@@ -15,11 +15,11 @@
     <div class="form-action-no-color">
         <p>
             Znajdź ucznia:<br />
-            Imie i nazwisko: <input type="text" name="SearchName" value="@Model.CurrentFilterName"/><br/>
-            Klasa <input type="text" name="SearchClass" value="@Model.CurrentFilterClass" />
-            Rocznik <input type="text" name="SearchYear" value="@Model.CurrentFilterYear" /> <br/>
+            Imie i nazwisko: <input type="text" name="searchName" value="@Model.CurrentFilterName"/><br/>
+            Klasa <input type="text" name="searchClass" value="@Model.CurrentFilterClass" />
+            Rocznik <input type="text" name="searchYear" value="@Model.CurrentFilterYear" /> <br/>
             <input type="submit" value="Szukaj" /> <br/>
-            <a asp-page="./Index">Przywróć cały widok</a>
+            <a asp-page="./Index">Resetuj filtr</a>
         </p>
     </div>
 </form>

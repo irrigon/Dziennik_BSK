@@ -10,11 +10,30 @@
 <p>
     <a asp-page="Create">Dodaj now¹</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-action-no-color">
+        <p>
+            Nieobecny:
+            <select name="searchPresent" asp-for="@Model.CurrentFilterIsPresent">
+                <option></option>
+                <option>Tak</option>
+                <option>Nie</option>
+            </select>
+            <input type="submit" value="Szukaj" /><br/>
+            <a asp-page="./Index">Resetuj filtr</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Participation[0].Lesson.LessonDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-searchPresent="@Model.CurrentFilterIsPresent">
+                    @Html.DisplayNameFor(model => model.Participation[0].Lesson.LessonDate)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Participation[0].Lesson.Subject)
@@ -26,23 +45,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Participation) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lesson.LessonDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lesson.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPresent)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br/>
-                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Participation)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.LessonDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPresent)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
+                    <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br />
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = Model.Participation.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.Participation.HasNextPage ? "" : "disabled";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchPresent="@Model.CurrentFilterIsPresent"
+   asp-route-pageIndex="@(Model.Participation.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">Poprzednia</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-searchPresent="@Model.CurrentFilterIsPresent"
+   asp-route-pageIndex="@(Model.Participation.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">Nastêpna</a>

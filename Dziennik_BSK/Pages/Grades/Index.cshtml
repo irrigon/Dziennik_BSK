@@ -10,12 +10,26 @@
 <p>
     <a asp-page="Create">Dodaj now¹ ocene</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-action-no-color">
+        <p>
+            Szukaj przedmiotu: <input type="text" name="searchSubject" value="@Model.CurrentFilter" />
+            <input type="submit" value="Szukaj" /><br/>
+            <a asp-page="./Index">Resetuj filtr</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Grade[0].AddDate)
-            </td>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-searchSubject="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Grade[0].AddDate)
+                </a>
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Grade[0].Rate)
             </th>
@@ -29,26 +43,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Grade) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Grade)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
+                    <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br />
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = Model.Grade.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.Grade.HasNextPage ? "" : "disabled";
+}
+
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.Grade.PageIndex - 1)"
+   asp-route-searchSubject="@Model.CurrentFilter"
+   asp-route-sortOrder="@Model.CurrentSort"
+   class="btn btn-default @prevDisabled">Poprzednia</a>
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.Grade.PageIndex + 1)"
+   asp-route-searchSubject="@Model.CurrentFilter"
+   asp-route-sortOrder="@Model.CurrentSort"
+   class="btn btn-default @nextDisabled">Nastêpna</a>
