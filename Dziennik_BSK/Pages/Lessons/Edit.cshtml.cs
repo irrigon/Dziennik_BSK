@@ -39,11 +39,12 @@ namespace Dziennik_BSK.Pages.Lessons
                 return Forbid();
             else if (user.Role != Roles.Teacher && user.Role != Roles.Admin)
                 return Forbid();
-            else if (user.Role == Roles.Teacher && user.TeacherId != Lesson.TeacherId)
-                return Forbid();
 
             Lesson = await _context.Lessons.Include(x => x.Teacher).
                 SingleOrDefaultAsync(m => m.Id == id);
+
+            if (user.Role == Roles.Teacher && user.TeacherId != Lesson.TeacherId)
+                return Forbid();
 
             if (Lesson == null)
             {

@@ -13,7 +13,7 @@ namespace Dziennik_BSK.Pages.Grades
         public SelectList TeacherSL { get; set; }
         public SelectList StudentSL { get; set; }
 
-        public void PopulateTacherDropDown(SchoolContext context,
+        public void PopulateTeacherDropDown(SchoolContext context,
             object selectedItem = null, string firstName = null,
             string surname = null)
         {

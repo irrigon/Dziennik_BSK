@@ -31,6 +31,14 @@ namespace Dziennik_BSK.Pages.Lessons
             else if (user.Role != Roles.Admin && user.Role != Roles.Teacher)
                 return Forbid();
 
+            var emptyLesson = new Lesson()
+            {
+                LessonDate = DateTime.Today
+            };
+            if (user.Role == Roles.Teacher)
+                emptyLesson.TeacherId = user.TeacherId ?? 0;
+            Lesson = emptyLesson;
+
             PopulateTeacherDropDown(_context);
             return Page();
         }
@@ -46,7 +54,7 @@ namespace Dziennik_BSK.Pages.Lessons
             }
 
 
-            var emptyLesson = new Lesson();
+            var emptyLesson = Lesson;
 
             if(await TryUpdateModelAsync<Lesson>(emptyLesson, "lesson", 
                 x => x.Id, x => x.LessonDate, x => x.Subject, x => x.Topic,
@@ -58,7 +66,14 @@ namespace Dziennik_BSK.Pages.Lessons
                 return RedirectToPage("./Index");
             }
 
-            PopulateTeacherDropDown(_context);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user.Role == Roles.Teacher)
+            {
+                var teacher = _context.Teachers.First(x => x.Id == user.TeacherId);
+                PopulateTeacherDropDown(_context, teacher);
+            }
+            else
+                PopulateTeacherDropDown(_context);
             return Page();
         }
     }

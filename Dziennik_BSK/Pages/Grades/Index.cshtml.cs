@@ -45,6 +45,7 @@ namespace Dziennik_BSK.Pages_Grades
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user is null)
                 return Forbid();
+            Role = user.Role;
 
             IQueryable<Grade> gradeQuery = _context.Grades.Select(x => x);
             if (user.Role == Roles.Student)

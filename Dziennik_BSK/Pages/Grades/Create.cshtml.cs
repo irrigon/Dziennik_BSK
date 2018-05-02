@@ -31,8 +31,16 @@ namespace Dziennik_BSK.Pages.Grades
             else if (user.Role != Roles.Admin && user.Role != Roles.Teacher)
                 return Forbid();
 
+            var emptyGrade = new Grade()
+            {
+                AddDate = DateTime.Today
+            };
+            if (user.Role == Roles.Teacher)
+                emptyGrade.TeacherId = user.TeacherId ?? 0;
+            Grade = emptyGrade;
+
             PopulateStudentDropDown(_context);
-            PopulateTacherDropDown(_context);
+            PopulateTeacherDropDown(_context);
             return Page();
         }
 
@@ -46,7 +54,7 @@ namespace Dziennik_BSK.Pages.Grades
                 return Page();
             }
 
-            var emptyGrade = new Grade();
+            var emptyGrade = Grade;
 
             if (await TryUpdateModelAsync(emptyGrade, "grade",
                 x => x.Id, x => x.Rate, x => x.Subject, x => x.Weight,
@@ -59,7 +67,7 @@ namespace Dziennik_BSK.Pages.Grades
             }
 
             PopulateStudentDropDown(_context);
-            PopulateTacherDropDown(_context);
+            PopulateTeacherDropDown(_context);
             return Page();
         }
     }

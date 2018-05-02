@@ -39,11 +39,12 @@ namespace Dziennik_BSK.Pages.Grades
                 return Forbid();
             else if (user.Role != Roles.Teacher && user.Role != Roles.Admin)
                 return Forbid();
-            else if (user.Role == Roles.Teacher && user.TeacherId != Grade.TeacherId)
-                return Forbid();
 
             Grade = await _context.Grades.Include(x => x.Student).
                 Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);
+
+            if (user.Role == Roles.Teacher && user.TeacherId != Grade.TeacherId)
+                return Forbid();
 
             if (Grade == null)
             {
@@ -51,7 +52,7 @@ namespace Dziennik_BSK.Pages.Grades
             }
 
             PopulateStudentDropDown(_context);
-            PopulateTacherDropDown(_context);
+            PopulateTeacherDropDown(_context); 
             return Page();
         }
 
@@ -90,7 +91,7 @@ namespace Dziennik_BSK.Pages.Grades
             }
 
             PopulateStudentDropDown(_context);
-            PopulateTacherDropDown(_context);
+            PopulateTeacherDropDown(_context);
             return Page();
         }
 
