@@ -8,15 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dziennik_BSK.Pages.Grades
 {
     public class EditModel : GradeAddsPageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
+        public readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(Dziennik_BSK.Data.SchoolContext context)
+        public EditModel(UserManager<ApplicationUser> userManager,
+            Dziennik_BSK.Data.SchoolContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -29,6 +33,14 @@ namespace Dziennik_BSK.Pages.Grades
             {
                 return NotFound();
             }
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user is null)
+                return Forbid();
+            else if (user.Role != Roles.Teacher && user.Role != Roles.Admin)
+                return Forbid();
+            else if (user.Role == Roles.Teacher && user.TeacherId != Grade.TeacherId)
+                return Forbid();
 
             Grade = await _context.Grades.Include(x => x.Student).
                 Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);

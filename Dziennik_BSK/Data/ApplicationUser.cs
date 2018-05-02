@@ -11,7 +11,7 @@ namespace Dziennik_BSK.Data
     {
         public ApplicationUser() : base()
         {
-            Role = Roles.STUDENT;
+            Role = Roles.Student;
         }
 
         public Roles Role { get; set; }
@@ -21,10 +21,10 @@ namespace Dziennik_BSK.Data
     }
 
     public enum Roles {
-        ADMIN,
-        STUDENT,
-        TEACHER,
-        PARENT
+        Admin,
+        Student,
+        Teacher,
+        Parent
     }
 
 }

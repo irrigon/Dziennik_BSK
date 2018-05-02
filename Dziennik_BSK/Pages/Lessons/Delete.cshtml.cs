@@ -34,7 +34,7 @@ namespace Dziennik_BSK.Pages_Lessons
             }
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (user is null || user.Role != Roles.ADMIN)
+            if (user is null || user.Role != Roles.Admin)
                 return Forbid();
 
             Lesson = await _context.Lessons.Include(x => x.Teacher).
