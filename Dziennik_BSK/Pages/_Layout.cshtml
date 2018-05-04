@@ -30,15 +30,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/About">O stronie</a></li>
-                    <li><a asp-page="/Contact">Kontakt</a></li>
-                    <li><a asp-page="/Students/Index">Uczniowie</a></li>
-                    <li><a asp-page="/Parents/Index">Rodzice</a></li>
-                    <li><a asp-page="/Teachers/Index">Nauczyciele</a></li>
-                    <li><a asp-page="/Grades/Index">Oceny</a></li>
-                    <li><a asp-page="/Lessons/Index">Lekcje</a></li>
-                    <li><a asp-page="/Participations/Index">Obecności</a></li>
-                    <li><a asp-page="/Notes/Index">Uwagi</a></li>
+                    @await Html.PartialAsync("_MenuBar");
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

@@ -15,7 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Participation.IsPresent" class="control-label"></label>
-                <select asp-for="Participation.IsPresent" class="form-control" ></select>
+                <select asp-for="Participation.IsPresent" class="form-control">
+                    <option>Tak</option>
+                    <option>Nie</option>
+                </select>
                 <span asp-validation-for="Participation.IsPresent" class="text-danger"></span>
             </div>
             <div class="form-group">

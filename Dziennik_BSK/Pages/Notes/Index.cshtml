@@ -8,7 +8,10 @@
 <h2>Uwagi</h2>
 
 <p>
+    @if (Model.Role == Roles.Admin || Model.Role == Roles.Teacher)
+    {
     <a asp-page="Create">Dodaj now¹</a>
+    }
 </p>
 
 <form asp-page="./Index" method="get">
@@ -61,9 +64,15 @@
                     @Html.DisplayFor(modelItem => item.IsNegative)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
                     <a asp-page="./Details" asp-route-id="@item.Id">Szczegó³y</a> <br />
+                    @if (Model.Role == Roles.Admin || Model.Role == Roles.Teacher)
+                    {
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
+                    }
+                    @if (Model.Role == Roles.Admin)
+                    {
                     <a asp-page="./Delete" asp-route-id="@item.Id">Usuñ</a>
+                    }
                 </td>
             </tr>
         }

@@ -8,15 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dziennik_BSK.Pages.Notes
 {
     public class EditModel : NoteAddsPageView
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(Dziennik_BSK.Data.SchoolContext context)
+        public EditModel(UserManager<ApplicationUser> userManager,
+            Dziennik_BSK.Data.SchoolContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -30,7 +34,16 @@ namespace Dziennik_BSK.Pages.Notes
                 return NotFound();
             }
 
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user is null)
+                return Forbid();
+            else if (user.Role != Roles.Admin && user.Role != Roles.Teacher)
+                return Forbid();
+
             Note = await _context.Notes.SingleOrDefaultAsync(m => m.Id == id);
+
+            if (user.Role == Roles.Teacher && user.TeacherId != Note.TeacherId)
+                Forbid();
 
             if (Note == null)
             {

@@ -24,6 +24,7 @@ namespace Dziennik_BSK.Pages_Grades
         }
 
         public Grade Grade { get; set; }
+        public Roles Role { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,11 +36,14 @@ namespace Dziennik_BSK.Pages_Grades
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user is null)
                 return Forbid();
-            if (user.Role == Roles.Student && user.StudentId != Grade.StudentId)
-                return Forbid();
+
+            Role = user.Role;
 
             Grade = await _context.Grades.Include(x => x.Student).
                 Include(x => x.Teacher).SingleOrDefaultAsync(m => m.Id == id);
+
+            if (user.Role == Roles.Student && user.StudentId != Grade.StudentId)
+                return Forbid();
 
             if (Grade == null)
             {

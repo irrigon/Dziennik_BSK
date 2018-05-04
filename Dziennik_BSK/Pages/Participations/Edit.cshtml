@@ -16,19 +16,22 @@
             <input type="hidden" asp-for="Participation.Id" />
             <div class="form-group">
                 <label asp-for="Participation.IsPresent" class="control-label"></label>
-                <select asp-for="Participation.IsPresent" class="form-control" ></select>
+                <select asp-for="Participation.IsPresent" class="form-control">
+                    <option>Tak</option>
+                    <option>Nie</option>
+                </select>
                 <span asp-validation-for="Participation.IsPresent" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Participation.Lesson" class="control-label"></label>
-                <select asp-for="Participation.Lesson" class="form-control"
+                <select asp-for="Participation.LessonId" class="form-control"
                         asp-items="@Model.LessonSL">
                     <option>--- Wybierz lekcje ---</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Participation.Student" class="control-label"></label>
-                <select asp-for="Participation.Student" class="form-control"
+                <select asp-for="Participation.StudentId" class="form-control"
                         asp-items="@Model.StudentSL">
                     <option>--- Wybierz ucznia ---</option>
                 </select>

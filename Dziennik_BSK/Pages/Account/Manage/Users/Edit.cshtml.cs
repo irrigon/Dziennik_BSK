@@ -7,40 +7,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
-using Dziennik_BSK.Models;
-using Microsoft.AspNetCore.Identity;
 
-namespace Dziennik_BSK.Pages_Students
+namespace Dziennik_BSK.Pages.Account.Manage.Users
 {
     public class EditModel : PageModel
     {
-        private readonly Dziennik_BSK.Data.SchoolContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly Dziennik_BSK.Data.ApplicationDbContext _context;
 
-        public EditModel(UserManager<ApplicationUser> userManager,
-            Dziennik_BSK.Data.SchoolContext context)
+        public EditModel(Dziennik_BSK.Data.ApplicationDbContext context)
         {
-            _userManager = userManager;
             _context = context;
         }
 
         [BindProperty]
-        public Student Student { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (user is null || user.Role != Roles.Admin)
-                return Forbid();
+            ApplicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
 
-            Student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (Student == null)
+            if (ApplicationUser == null)
             {
                 return NotFound();
             }
@@ -54,7 +45,7 @@ namespace Dziennik_BSK.Pages_Students
                 return Page();
             }
 
-            _context.Attach(Student).State = EntityState.Modified;
+            _context.Attach(ApplicationUser).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +53,7 @@ namespace Dziennik_BSK.Pages_Students
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(Student.Id))
+                if (!ApplicationUserExists(ApplicationUser.Id))
                 {
                     return NotFound();
                 }
@@ -75,9 +66,9 @@ namespace Dziennik_BSK.Pages_Students
             return RedirectToPage("./Index");
         }
 
-        private bool StudentExists(int id)
+        private bool ApplicationUserExists(string id)
         {
-            return _context.Students.Any(e => e.Id == id);
+            return _context.ApplicationUser.Any(e => e.Id == id);
         }
     }
 }

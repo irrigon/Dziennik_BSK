@@ -7,15 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dziennik_BSK.Pages.Participations
 {
     public class DeleteModel : PageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DeleteModel(Dziennik_BSK.Data.SchoolContext context)
+        public DeleteModel(UserManager<ApplicationUser> userManager,
+            Dziennik_BSK.Data.SchoolContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -28,6 +32,10 @@ namespace Dziennik_BSK.Pages.Participations
             {
                 return NotFound();
             }
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user is null || user.Role != Roles.Admin)
+                return Forbid();
 
             Participation = await _context.Participations.Include(d => d.Lesson).
                 Include(d => d.Student).SingleOrDefaultAsync(m => m.Id == id);

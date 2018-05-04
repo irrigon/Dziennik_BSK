@@ -24,6 +24,7 @@ namespace Dziennik_BSK.Pages_Lessons
         }
 
         public Lesson Lesson { get; set; }
+        public Roles Role { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,6 +36,8 @@ namespace Dziennik_BSK.Pages_Lessons
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user is null)
                 return Forbid();
+
+            Role = user.Role;
 
             Lesson = await _context.Lessons.Include(x => x.Teacher).
                 SingleOrDefaultAsync(m => m.Id == id);

@@ -7,15 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Dziennik_BSK.Data;
 using Dziennik_BSK.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dziennik_BSK.Pages_Teachers
 {
     public class IndexModel : PageModel
     {
         private readonly Dziennik_BSK.Data.SchoolContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(Dziennik_BSK.Data.SchoolContext context)
+        public IndexModel(UserManager<ApplicationUser> userManager,
+            Dziennik_BSK.Data.SchoolContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -24,11 +28,15 @@ namespace Dziennik_BSK.Pages_Teachers
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync(string sortOrder, string searchName,
+        public async Task<IActionResult> OnGetAsync(string sortOrder, string searchName,
             int? pageIndex)
         {
             CurrentSort = sortOrder;
             SurnameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user is null || user.Role != Roles.Admin)
+                return Forbid();
 
             if (searchName is null)
                 searchName = CurrentFilter;
@@ -54,6 +62,7 @@ namespace Dziennik_BSK.Pages_Teachers
             int pageSize = 5;
             Teacher = await PaginatedList<Teacher>.CreateAsync(teacherQuery.AsNoTracking(),
                 pageIndex ?? 1, pageSize);
+            return Page();
         }
     }
 }

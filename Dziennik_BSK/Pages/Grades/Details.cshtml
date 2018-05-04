@@ -56,6 +56,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Grade.Id">Edytuj</a> |
+    @if (Model.Role == Roles.Admin || Model.Role == Roles.Teacher)
+    {
+    <a asp-page="./Edit" asp-route-id="@Model.Grade.Id">Edytuj</a> <br />
+    }
     <a asp-page="./Index">Powrót do listy</a>
 </div>

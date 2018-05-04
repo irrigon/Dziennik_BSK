@@ -8,7 +8,10 @@
 <h2>Uczniowie</h2>
 
 <p>
+    @if (Model.Role == Roles.Admin)
+    {
     <a asp-page="Create">Dodaj ucznia</a>
+    }
 </p>
 
 <form asp-page="./Index" method="get">
@@ -64,9 +67,12 @@
                 @Html.DisplayFor(modelItem => item.Class)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br/>
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegóły</a> <br/>
+                <a asp-page="./Details" asp-route-id="@item.Id">Szczegóły</a> <br />
+                @if (Model.Role == Roles.Admin)
+                {
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> <br />
                 <a asp-page="./Delete" asp-route-id="@item.Id">Usuń</a>
+                }
             </td>
         </tr>
 }

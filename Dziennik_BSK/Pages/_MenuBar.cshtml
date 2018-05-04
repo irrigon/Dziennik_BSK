@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Dziennik_BSK.Data
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<li><a asp-page="/About">O stronie</a></li>
+<li><a asp-page="/Contact">Kontakt</a></li>
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    
+    if (user.Role == Roles.Admin)
+    {
+        <li><a asp-page="/Teachers/Index">Nauczyciele</a></li>
+        <li><a asp-page="/Students/Index">Uczniowie</a></li>
+    }
+    else if (user.Role == Roles.Teacher)
+    {
+        <li><a asp-page="/Students/Index">Uczniowie</a></li>
+    }
+    <li><a asp-page="/Grades/Index">Oceny</a></li>
+    <li><a asp-page="/Lessons/Index">Lekcje</a></li>
+    <li><a asp-page="/Participations/Index">Obecności</a></li>
+    <li><a asp-page="/Notes/Index">Uwagi</a></li>
+}
